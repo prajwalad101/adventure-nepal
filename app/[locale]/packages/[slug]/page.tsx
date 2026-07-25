@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Link } from "../../../../i18n/navigation";
+import LanguageSwitcher from "../../../components/LanguageSwitcher";
 import { notFound } from "next/navigation";
-import ImageCarousel from "../../components/ImageCarousel";
-import { getPackage, packages } from "../../lib/packages";
+import ImageCarousel from "../../../components/ImageCarousel";
+import { getPackage, getPackages, packages } from "../../../lib/packages";
 
-type Props = { params: Promise<{ slug: string }> };
+type Props = { params: Promise<{ locale: string; slug: string }> };
 
 export function generateStaticParams() {
   return packages.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const pkg = getPackage(slug);
+  const { locale, slug } = await params;
+  const pkg = getPackage(slug, locale);
   if (!pkg) return {};
   return {
     title: `${pkg.name} — ${pkg.price} | Adventure Nepal`,
@@ -26,20 +28,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function PackagePage({ params }: Props) {
-  const { slug } = await params;
-  const pkg = getPackage(slug);
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations();
+  const pkg = getPackage(slug, locale);
   if (!pkg) notFound();
 
   const facts = [
-    { label: "Price", value: `${pkg.price} / person` },
-    { label: "Duration", value: pkg.duration },
-    { label: "Transport", value: pkg.transport },
-    { label: "Starts from", value: pkg.origin },
-    ...(pkg.departure ? [{ label: "Departure", value: pkg.departure }] : []),
-    ...(pkg.reserve ? [{ label: "Private option", value: pkg.reserve }] : []),
+    { label: t("pkg.facts.price"), value: t("pkg.perPersonValue", { price: pkg.price }) },
+    { label: t("pkg.facts.duration"), value: pkg.duration },
+    { label: t("pkg.facts.transport"), value: pkg.transport },
+    { label: t("pkg.facts.startsFrom"), value: pkg.origin },
+    ...(pkg.departure ? [{ label: t("pkg.facts.departure"), value: pkg.departure }] : []),
+    ...(pkg.reserve ? [{ label: t("pkg.facts.privateOption"), value: pkg.reserve }] : []),
   ];
 
-  const related = packages.filter((p) => p.slug !== pkg.slug).slice(0, 3);
+  const related = getPackages(locale).filter((p) => p.slug !== pkg.slug).slice(0, 3);
 
   return (
     <div className="flex flex-col flex-1">
@@ -54,13 +58,14 @@ export default async function PackagePage({ params }: Props) {
           </Link>
           <div className="flex items-center gap-6 text-sm font-medium">
             <Link href="/#packages" className="hover:text-marigold-deep transition-colors">
-              All packages
+              {t("nav.allPackages")}
             </Link>
+            <LanguageSwitcher />
             <a
               href="#book"
               className="rounded-full bg-pine px-4 py-2 text-snow hover:bg-pine-soft transition-colors"
             >
-              Book this trip
+              {t("nav.bookThisTrip")}
             </a>
           </div>
         </nav>
@@ -70,7 +75,7 @@ export default async function PackagePage({ params }: Props) {
         {/* Title */}
         <div className="pt-10">
           <p className="text-sm font-medium uppercase tracking-[0.25em] text-marigold-deep">
-            {pkg.origin} to {pkg.destination}
+            {t("packages.route", { origin: pkg.origin, destination: pkg.destination })}
           </p>
           <h1 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-bold text-pine sm:text-5xl">
             {pkg.name}
@@ -106,7 +111,7 @@ export default async function PackagePage({ params }: Props) {
                 id="places"
                 className="font-[family-name:var(--font-display)] text-2xl font-bold text-pine"
               >
-                Places you&apos;ll visit
+                {t("pkg.places")}
               </h2>
               <ul className="mt-5 flex flex-wrap gap-2">
                 {pkg.highlights.map((place) => (
@@ -126,7 +131,7 @@ export default async function PackagePage({ params }: Props) {
                 id="itinerary"
                 className="font-[family-name:var(--font-display)] text-2xl font-bold text-pine"
               >
-                Day-by-day itinerary
+                {t("pkg.itinerary")}
               </h2>
               <ol className="mt-6 space-y-8 border-l-2 border-marigold/40 pl-6">
                 {pkg.itinerary.map((leg) => (
@@ -159,12 +164,12 @@ export default async function PackagePage({ params }: Props) {
                 id="included"
                 className="font-[family-name:var(--font-display)] text-2xl font-bold text-pine"
               >
-                What&apos;s included
+                {t("pkg.included")}
               </h2>
               <div className="mt-6 grid gap-6 sm:grid-cols-2">
                 <div className="rounded-2xl bg-snow p-6 ring-1 ring-pine/10">
                   <h3 className="text-sm font-semibold uppercase tracking-wide text-pine">
-                    In the price
+                    {t("pkg.inPrice")}
                   </h3>
                   <ul className="mt-3 space-y-2 text-sm text-pine/80">
                     {pkg.includes.map((item) => (
@@ -178,11 +183,10 @@ export default async function PackagePage({ params }: Props) {
                 {pkg.reserve && (
                   <div className="rounded-2xl bg-mist/60 p-6">
                     <h3 className="text-sm font-semibold uppercase tracking-wide text-pine">
-                      Want the jeep to yourselves?
+                      {t("pkg.privateTitle")}
                     </h3>
                     <p className="mt-3 text-sm leading-relaxed text-pine/70">
-                      {pkg.reserve}. Call us to reserve a private vehicle for
-                      your group.
+                      {t("pkg.privateBody", { reserve: pkg.reserve })}
                     </p>
                   </div>
                 )}
@@ -196,7 +200,7 @@ export default async function PackagePage({ params }: Props) {
                   id="notes"
                   className="font-[family-name:var(--font-display)] text-2xl font-bold text-pine"
                 >
-                  Good to know
+                  {t("pkg.goodToKnow")}
                 </h2>
                 <ul className="mt-5 space-y-2 text-sm leading-relaxed text-pine/80">
                   {pkg.notes.map((note) => (
@@ -213,10 +217,10 @@ export default async function PackagePage({ params }: Props) {
           {/* Booking sidebar */}
           <aside id="book" className="scroll-mt-24">
             <div className="rounded-2xl bg-pine p-6 text-snow lg:sticky lg:top-24">
-              <p className="text-sm text-snow/70">From</p>
+              <p className="text-sm text-snow/70">{t("pkg.from")}</p>
               <p className="font-[family-name:var(--font-display)] text-3xl font-bold text-marigold">
                 {pkg.price}
-                <span className="ml-1 text-sm font-medium text-snow/70">/ person</span>
+                <span className="ml-1 text-sm font-medium text-snow/70">{t("pkg.perPerson")}</span>
               </p>
               <p className="mt-1 text-sm text-snow/80">{pkg.duration}</p>
               {pkg.departure && (
@@ -226,17 +230,16 @@ export default async function PackagePage({ params }: Props) {
                 href={`tel:${pkg.phone.tel}`}
                 className="mt-5 block rounded-full bg-marigold py-3 text-center font-semibold text-pine hover:bg-marigold-deep hover:text-snow transition-colors"
               >
-                Call {pkg.phone.display}
+                {t("pkg.call", { phone: pkg.phone.display })}
               </a>
               <a
-                href={`https://wa.me/${pkg.phone.tel.replace("+", "")}?text=${encodeURIComponent(`Hi, I'd like to book the ${pkg.name}.`)}`}
+                href={`https://wa.me/${pkg.phone.tel.replace("+", "")}?text=${encodeURIComponent(t("pkg.whatsappPrefill", { name: pkg.name }))}`}
                 className="mt-3 block rounded-full border border-snow/30 py-3 text-center text-sm font-semibold hover:bg-snow/10 transition-colors"
               >
-                Message on WhatsApp
+                {t("pkg.whatsapp")}
               </a>
               <p className="mt-4 text-xs leading-relaxed text-snow/60">
-                Seats are on a {pkg.transport.toLowerCase()} basis. Call to
-                check the next departure and hold your seat.
+                {t("pkg.seatsNote", { transport: pkg.transport })}
               </p>
             </div>
           </aside>
@@ -248,7 +251,7 @@ export default async function PackagePage({ params }: Props) {
             id="related"
             className="font-[family-name:var(--font-display)] text-2xl font-bold text-pine"
           >
-            More trips
+            {t("pkg.moreTrips")}
           </h2>
           <div className="mt-6 grid gap-6 sm:grid-cols-3">
             {related.map((p) => (
@@ -284,7 +287,7 @@ export default async function PackagePage({ params }: Props) {
             <span className="font-[family-name:var(--font-display)] font-bold">
               Adventure Nepal
             </span>{" "}
-            · Street No. 15, Lakeside, Pokhara
+            · {t("map.address")}
           </p>
           <p className="text-snow/70">{pkg.phone.display}</p>
         </div>

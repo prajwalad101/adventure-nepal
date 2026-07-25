@@ -1,0 +1,103 @@
+{
+  "nav": {
+    "packages": "Packages",
+    "bookTrip": "Book a trip",
+    "allPackages": "All packages",
+    "bookThisTrip": "Book this trip"
+  },
+  "hero": {
+    "kicker": "Mountains · Lakes · Jungles · Temples",
+    "title": "Small-group tours across all of Nepal — one price, everything arranged.",
+    "subtitle": "Transport, stays and meals are all in the price. Local guides, six to seven people per jeep, and the only thing you carry is a daypack.",
+    "ctaPackages": "See the packages",
+    "ctaContact": "Contact us"
+  },
+  "packages": {
+    "kicker": "Packages",
+    "title": "Pick your trip",
+    "subtitle": "Every trip lists exactly what you pay, where you go and what's included. No hidden costs at the trailhead.",
+    "perPerson": "per person",
+    "viewDetails": "View details",
+    "more": "+{count} more",
+    "route": "{origin} to {destination}"
+  },
+  "pkg": {
+    "facts": {
+      "price": "Price",
+      "duration": "Duration",
+      "transport": "Transport",
+      "startsFrom": "Starts from",
+      "departure": "Departure",
+      "privateOption": "Private option"
+    },
+    "perPersonValue": "{price} / person",
+    "places": "Places you'll visit",
+    "itinerary": "Day-by-day itinerary",
+    "included": "What's included",
+    "inPrice": "In the price",
+    "privateTitle": "Want the jeep to yourselves?",
+    "privateBody": "{reserve}. Call us to reserve a private vehicle for your group.",
+    "goodToKnow": "Good to know",
+    "moreTrips": "More trips",
+    "from": "From",
+    "perPerson": "/ person",
+    "call": "Call {phone}",
+    "whatsapp": "Message on WhatsApp",
+    "whatsappPrefill": "Hi, I'd like to book the {name}.",
+    "seatsNote": "Seats are on a {transport} basis. Call to check the next departure and hold your seat."
+  },
+  "why": {
+    "guides": {
+      "title": "Local guides",
+      "body": "Every trip is led by guides born on these trails — Mustang, Annapurna, Khumbu, Chitwan."
+    },
+    "price": {
+      "title": "One clear price",
+      "body": "Transport, hotels and meals are in the price you see. You budget once, then relax."
+    },
+    "groups": {
+      "title": "Small groups",
+      "body": "Six to seven people per jeep, never busloads. Fast to move, easy to feed, good company."
+    }
+  },
+  "map": {
+    "kicker": "Find us",
+    "title": "Visit our office in Pokhara",
+    "subtitle": "Drop by for a cup of tea and plan your trip with us in person.",
+    "address": "Street No. 15, Lakeside, Pokhara",
+    "openInMaps": "Open in Google Maps",
+    "mapTitle": "Adventure Nepal office location"
+  },
+  "footer": {
+    "title": "Ready when you are.",
+    "subtitle": "Call or message us on WhatsApp to hold a seat — a small deposit confirms your booking.",
+    "copyright": "© {year} Adventure Nepal. Photos via Unsplash."
+  },
+  "contact": {
+    "kicker": "Contact",
+    "title": "Tell us about your trip",
+    "subtitle": "Send an inquiry about any package — or your own plan — and we'll get back to you within a day.",
+    "direct": {
+      "title": "The fastest way to reach us",
+      "subtitle": "Call or message us on WhatsApp — we usually answer right away.",
+      "whatsapp": "Message on WhatsApp"
+    },
+    "form": {
+      "divider": "Or send us a message",
+      "name": "Your name",
+      "namePlaceholder": "e.g. Sita Gurung",
+      "contact": "Phone number or email",
+      "contactPlaceholder": "So we can reach you back",
+      "package": "Package (optional)",
+      "packageNone": "Not sure yet / general question",
+      "message": "Your inquiry",
+      "messagePlaceholder": "Dates, group size, questions — anything helps.",
+      "submit": "Send inquiry",
+      "sending": "Sending…",
+      "successTitle": "Inquiry sent!",
+      "successBody": "Thank you — we'll get back to you within a day. In a hurry? Call us at <phone>+977 984-100-2208</phone>.",
+      "errorMissing": "Please fill in your name, contact and inquiry.",
+      "errorSend": "Something went wrong sending your inquiry. Please try again, or call us at <phone>+977 984-100-2208</phone>."
+    }
+  }
+}

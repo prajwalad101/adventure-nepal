@@ -1,3 +1,5 @@
+import { packagesNe } from "./packages.ne";
+
 export type PackageImage = { src: string; alt: string };
 
 export type ItineraryDay = {
@@ -419,6 +421,11 @@ export const packages: TourPackage[] = [
   },
 ];
 
-export function getPackage(slug: string) {
-  return packages.find((p) => p.slug === slug);
+export function getPackages(locale = "en"): TourPackage[] {
+  if (locale !== "ne") return packages;
+  return packages.map((p) => ({ ...p, ...packagesNe[p.slug] }));
+}
+
+export function getPackage(slug: string, locale = "en") {
+  return getPackages(locale).find((p) => p.slug === slug);
 }

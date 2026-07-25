@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 :root {
+  /* Chain Devanagari after the Latin faces so Nepali text renders everywhere */
+  --font-display: var(--font-bricolage), var(--font-devanagari), sans-serif;
+  --font-body: var(--font-instrument), var(--font-devanagari), system-ui, sans-serif;
   --background: #f7f6f2;
   --foreground: #1c2b26;
   --pine: #1c2b26;
