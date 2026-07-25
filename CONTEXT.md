@@ -23,3 +23,7 @@ _Avoid_: Address (when you mean the maps search string)
 **Public email**:
 The single company email used both as the mailto visitors see and as the inquiry delivery inbox. Owned by the Site — not an env setting.
 _Avoid_: Contact email, CONTACT_TO_EMAIL
+
+**Chrome**:
+The shared page shell — header (brand mark, nav, optional CTA) and footer (contact block, copyright) — that wraps every page body.
+_Avoid_: Layout shell, page frame, template

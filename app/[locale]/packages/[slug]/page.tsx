@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "../../../../i18n/navigation";
-import LanguageSwitcher from "../../../components/LanguageSwitcher";
 import { notFound } from "next/navigation";
 import ImageCarousel from "../../../components/ImageCarousel";
-import SiteMark from "../../../components/SiteMark";
+import SiteFooter from "../../../components/SiteFooter";
+import SiteHeader from "../../../components/SiteHeader";
 import { getPackage, getPackages, packages } from "../../../lib/packages";
 import { site } from "../../../lib/site";
 
@@ -49,29 +49,7 @@ export default async function PackagePage({ params }: Props) {
 
   return (
     <div className="flex flex-col flex-1">
-      {/* Header */}
-      <header className="sticky top-0 z-20 bg-background/90 backdrop-blur border-b border-pine/10">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-          <Link
-            href="/"
-            className="font-[family-name:var(--font-display)] text-lg font-bold tracking-tight text-pine"
-          >
-            <SiteMark />
-          </Link>
-          <div className="flex items-center gap-6 text-sm font-medium">
-            <Link href="/#packages" className="hover:text-marigold-deep transition-colors">
-              {t("nav.allPackages")}
-            </Link>
-            <LanguageSwitcher />
-            <a
-              href="#book"
-              className="rounded-full bg-pine px-4 py-2 text-snow hover:bg-pine-soft transition-colors"
-            >
-              {t("nav.bookThisTrip")}
-            </a>
-          </div>
-        </nav>
-      </header>
+      <SiteHeader cta={{ label: t("nav.bookThisTrip"), href: "#book" }} />
 
       <main className="mx-auto w-full max-w-6xl px-5 pb-20">
         {/* Title */}
@@ -284,18 +262,7 @@ export default async function PackagePage({ params }: Props) {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-pine py-10 text-snow">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 text-sm sm:flex-row sm:justify-between">
-          <p>
-            <span className="font-[family-name:var(--font-display)] font-bold">
-              {site.name}
-            </span>{" "}
-            · {t("map.address")}
-          </p>
-          <p className="text-snow/70">{site.phone.display}</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

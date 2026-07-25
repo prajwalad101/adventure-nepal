@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { Link } from '../../../i18n/navigation';
 import InquiryForm from '../../components/InquiryForm';
-import LanguageSwitcher from '../../components/LanguageSwitcher';
-import SiteMark from '../../components/SiteMark';
+import SiteFooter from '../../components/SiteFooter';
+import SiteHeader from '../../components/SiteHeader';
 import { site } from '../../lib/site';
 
 export const metadata: Metadata = {
@@ -20,32 +19,13 @@ export default async function ContactPage({
 
   return (
     <div className="flex flex-col flex-1">
-      {/* Header */}
-      <header className="sticky top-0 z-20 bg-background/90 backdrop-blur border-b border-pine/10">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-          <Link
-            href="/"
-            className="font-display text-lg font-bold tracking-tight text-pine"
-          >
-            <SiteMark />
-          </Link>
-          <div className="flex items-center gap-4 text-sm font-medium sm:gap-6">
-            <Link
-              href="/#packages"
-              className="hover:text-marigold-deep transition-colors"
-            >
-              {t('nav.packages')}
-            </Link>
-            <LanguageSwitcher />
-          </div>
-        </nav>
-      </header>
+      <SiteHeader />
 
       <main className="mx-auto w-full max-w-3xl flex-1 px-5 pb-20 pt-12">
         <p className="text-sm font-medium uppercase tracking-[0.25em] text-marigold-deep">
           {t('contact.kicker')}
         </p>
-        <h1 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-bold text-pine sm:text-5xl">
+        <h1 className="mt-2 font-display text-3xl font-bold text-pine sm:text-5xl">
           {t('contact.title')}
         </h1>
         <p className="mt-3 max-w-xl text-pine/70">{t('contact.subtitle')}</p>
@@ -61,19 +41,19 @@ export default async function ContactPage({
           <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
             <a
               href={site.telHref}
-              className="rounded-full bg-marigold px-6 py-3 text-center font-display text-lg font-bold text-pine hover:bg-marigold-deep hover:text-snow transition-colors"
+              className="rounded-full bg-marigold px-6 py-3 text-center font-display text-lg font-bold text-pine transition-colors hover:bg-marigold-deep hover:text-snow"
             >
               {site.phone.display}
             </a>
             <a
               href={site.whatsappUrl(t('contact.direct.whatsappPrefill'))}
-              className="rounded-full border border-snow/30 px-6 py-3 text-center text-sm font-semibold hover:bg-snow/10 transition-colors"
+              className="rounded-full border border-snow/30 px-6 py-3 text-center text-sm font-semibold transition-colors hover:bg-snow/10"
             >
               {t('contact.direct.whatsapp')}
             </a>
             <a
               href={site.mailtoHref}
-              className="text-center text-sm font-semibold text-snow/85 underline underline-offset-4 hover:text-marigold transition-colors"
+              className="text-center text-sm font-semibold text-snow/85 underline underline-offset-4 transition-colors hover:text-marigold"
             >
               {site.email}
             </a>
@@ -94,16 +74,7 @@ export default async function ContactPage({
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-pine py-10 text-snow">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 text-sm sm:flex-row sm:justify-between">
-          <p>
-            <span className="font-display font-bold">{site.name}</span> ·{' '}
-            {t('map.address')}
-          </p>
-          <p className="text-snow/70">{site.phone.display}</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
