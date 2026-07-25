@@ -1,18 +1,13 @@
 "use server";
 
 import { Resend } from "resend";
+import { env } from "@/env";
 import { getPackage } from "../../lib/packages";
 
 export type InquiryState = {
   status: "idle" | "success" | "error";
   error?: "errorMissing" | "errorSend";
 };
-
-const TO_EMAIL = process.env.CONTACT_TO_EMAIL ?? "hello@adventurenepal.com";
-// ponytail: resend.dev sender works without domain setup; switch to a
-// verified adventurenepal.com sender in Resend before launch for deliverability
-const FROM_EMAIL =
-  process.env.CONTACT_FROM_EMAIL ?? "Adventure Nepal Website <onboarding@resend.dev>";
 
 export async function sendInquiry(
   _prev: InquiryState,
@@ -34,10 +29,12 @@ export async function sendInquiry(
   }
 
   try {
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    // ponytail: resend.dev sender works without domain setup; switch to a
+    // verified adventurenepal.com sender in Resend before launch for deliverability
+    const resend = new Resend(env.RESEND_API_KEY);
     const { error } = await resend.emails.send({
-      from: FROM_EMAIL,
-      to: TO_EMAIL,
+      from: env.CONTACT_FROM_EMAIL,
+      to: env.CONTACT_TO_EMAIL,
       replyTo: contact.includes("@") ? contact : undefined,
       subject: `Website inquiry from ${name}${pkg ? ` — ${pkg}` : ""}`,
       text: [
