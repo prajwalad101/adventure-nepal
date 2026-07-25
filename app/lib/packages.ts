@@ -23,13 +23,11 @@ export type TourPackage = {
   reserve?: string;
   departure?: string;
   notes?: string[];
-  phone: { tel: string; display: string };
 };
 
 const u = (id: string, w = 1200) =>
   `https://images.unsplash.com/photo-${id}?w=${w}&q=75`;
 
-const PHONE = { tel: "+9779841002208", display: "+977 984-100-2208" };
 const JEEP = "4WD Jeep · 6–7 seat sharing";
 
 export const packages: TourPackage[] = [
@@ -85,7 +83,6 @@ export const packages: TourPackage[] = [
     notes: [
       "The overnight stop is Jomsom or Marpha depending on the day's schedule.",
     ],
-    phone: PHONE,
   },
   {
     slug: "upper-mustang-tour-package",
@@ -163,7 +160,6 @@ export const packages: TourPackage[] = [
     notes: [
       "Overnight stops on Days 1 and 3 depend on the day's driving and room availability.",
     ],
-    phone: PHONE,
   },
   {
     slug: "manang-tour-package",
@@ -221,7 +217,6 @@ export const packages: TourPackage[] = [
     ],
     includes: ["Transportation", "Hotel accommodation", "Breakfast", "Dinner"],
     reserve: "Private Scorpio reserve, Pokhara to Manang — Rs 50,000",
-    phone: PHONE,
   },
   {
     slug: "rara-lake-tour-package",
@@ -303,7 +298,6 @@ export const packages: TourPackage[] = [
     notes: [
       "About 1,688 km of driving over the seven days — long road days, big rewards.",
     ],
-    phone: PHONE,
   },
   {
     slug: "dhorpatan-tour-package",
@@ -354,7 +348,6 @@ export const packages: TourPackage[] = [
       "Dinner",
     ],
     reserve: "Private Scorpio reserve, Pokhara to Dhorpatan — Rs 30,000",
-    phone: PHONE,
   },
   {
     slug: "bukipatan-dhorpatan-tour-package",
@@ -417,7 +410,6 @@ export const packages: TourPackage[] = [
     ],
     reserve: "Private Scorpio reserve, Pokhara to Dhorpatan — Rs 30,000",
     notes: ["Day 2 includes a 3–4 hour hike to Bukipatan — bring walking shoes."],
-    phone: PHONE,
   },
 ];
 

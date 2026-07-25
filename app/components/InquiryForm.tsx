@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { sendInquiry, type InquiryState } from "../[locale]/contact/actions";
 import { getPackages } from "../lib/packages";
+import { site } from "../lib/site";
 
 const initialState: InquiryState = { status: "idle" };
 
@@ -12,7 +13,7 @@ const fieldClasses =
 
 function PhoneLink({ chunks }: { chunks: React.ReactNode }) {
   return (
-    <a href="tel:+9779841002208" className="font-semibold underline hover:no-underline">
+    <a href={site.telHref} className="font-semibold underline hover:no-underline">
       {chunks}
     </a>
   );
@@ -32,7 +33,8 @@ export default function InquiryForm() {
         </h2>
         <p className="mt-3 text-sm leading-relaxed text-snow/85">
           {t.rich("successBody", {
-            phone: (chunks) => <PhoneLink chunks={chunks} />,
+            phone: site.phone.display,
+            tel: (chunks) => <PhoneLink chunks={chunks} />,
           })}
         </p>
       </div>
@@ -99,7 +101,8 @@ export default function InquiryForm() {
       {state.status === "error" && (
         <p className="mt-4 rounded-xl bg-marigold/15 px-4 py-3 text-sm text-pine" role="alert">
           {t.rich(state.error ?? "errorSend", {
-            phone: (chunks) => <PhoneLink chunks={chunks} />,
+            phone: site.phone.display,
+            tel: (chunks) => <PhoneLink chunks={chunks} />,
           })}
         </p>
       )}

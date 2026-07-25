@@ -4,7 +4,9 @@ import { Link } from "../../../../i18n/navigation";
 import LanguageSwitcher from "../../../components/LanguageSwitcher";
 import { notFound } from "next/navigation";
 import ImageCarousel from "../../../components/ImageCarousel";
+import SiteMark from "../../../components/SiteMark";
 import { getPackage, getPackages, packages } from "../../../lib/packages";
+import { site } from "../../../lib/site";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
@@ -17,10 +19,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const pkg = getPackage(slug, locale);
   if (!pkg) return {};
   return {
-    title: `${pkg.name} — ${pkg.price} | Adventure Nepal`,
+    title: `${pkg.name} — ${pkg.price} | ${site.name}`,
     description: `${pkg.name} from ${pkg.origin}: ${pkg.duration}, ${pkg.transport}. Full itinerary, pricing and what's included.`,
     openGraph: {
-      title: `${pkg.name} | Adventure Nepal`,
+      title: `${pkg.name} | ${site.name}`,
       description: `${pkg.duration} from ${pkg.origin} — ${pkg.price} per person`,
       images: [{ url: pkg.images[0].src }],
     },
@@ -54,7 +56,7 @@ export default async function PackagePage({ params }: Props) {
             href="/"
             className="font-[family-name:var(--font-display)] text-lg font-bold tracking-tight text-pine"
           >
-            Adventure<span className="text-marigold-deep"> Nepal</span>
+            <SiteMark />
           </Link>
           <div className="flex items-center gap-6 text-sm font-medium">
             <Link href="/#packages" className="hover:text-marigold-deep transition-colors">
@@ -227,13 +229,15 @@ export default async function PackagePage({ params }: Props) {
                 <p className="mt-1 text-sm text-snow/80">{pkg.departure}</p>
               )}
               <a
-                href={`tel:${pkg.phone.tel}`}
+                href={site.telHref}
                 className="mt-5 block rounded-full bg-marigold py-3 text-center font-semibold text-pine hover:bg-marigold-deep hover:text-snow transition-colors"
               >
-                {t("pkg.call", { phone: pkg.phone.display })}
+                {t("pkg.call", { phone: site.phone.display })}
               </a>
               <a
-                href={`https://wa.me/${pkg.phone.tel.replace("+", "")}?text=${encodeURIComponent(t("pkg.whatsappPrefill", { name: pkg.name }))}`}
+                href={site.whatsappUrl(
+                  t("pkg.whatsappPrefill", { name: pkg.name }),
+                )}
                 className="mt-3 block rounded-full border border-snow/30 py-3 text-center text-sm font-semibold hover:bg-snow/10 transition-colors"
               >
                 {t("pkg.whatsapp")}
@@ -285,11 +289,11 @@ export default async function PackagePage({ params }: Props) {
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 text-sm sm:flex-row sm:justify-between">
           <p>
             <span className="font-[family-name:var(--font-display)] font-bold">
-              Adventure Nepal
+              {site.name}
             </span>{" "}
             · {t("map.address")}
           </p>
-          <p className="text-snow/70">{pkg.phone.display}</p>
+          <p className="text-snow/70">{site.phone.display}</p>
         </div>
       </footer>
     </div>

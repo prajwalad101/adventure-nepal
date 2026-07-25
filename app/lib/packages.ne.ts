@@ -1,8 +1,8 @@
 import type { TourPackage } from "./packages";
 
 // Nepali overrides, merged over the English base per slug.
-// Untranslated fields (slug, images, phone) fall through to the base.
-type NePackage = Partial<Omit<TourPackage, "slug" | "images" | "phone">>;
+// Untranslated fields (slug, images) fall through to the base.
+type NePackage = Partial<Omit<TourPackage, "slug" | "images">>;
 
 const JEEP_NE = "4WD जीप · ६–७ सिट सेयरिङ";
 

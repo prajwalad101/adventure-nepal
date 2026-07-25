@@ -8,6 +8,7 @@ import {
   Noto_Sans_Devanagari,
 } from "next/font/google";
 import { routing } from "../../i18n/routing";
+import { site } from "../lib/site";
 import "../globals.css";
 
 const display = Bricolage_Grotesque({
@@ -26,7 +27,7 @@ const devanagari = Noto_Sans_Devanagari({
 });
 
 export const metadata: Metadata = {
-  title: "Adventure Nepal — Tours, Treks & Getaways",
+  title: `${site.name} — Tours, Treks & Getaways`,
   description:
     "Small-group trips across Nepal — mountains, lakes, jungles and heritage cities. Transparent pricing, local guides, everything arranged.",
 };

@@ -3,11 +3,12 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '../../../i18n/navigation';
 import InquiryForm from '../../components/InquiryForm';
 import LanguageSwitcher from '../../components/LanguageSwitcher';
+import SiteMark from '../../components/SiteMark';
+import { site } from '../../lib/site';
 
 export const metadata: Metadata = {
-  title: 'Contact — Adventure Nepal',
-  description:
-    'Send an inquiry about any Adventure Nepal package. We reply within a day.',
+  title: `Contact — ${site.name}`,
+  description: `Send an inquiry about any ${site.name} package. We reply within a day.`,
 };
 
 export default async function ContactPage({
@@ -26,7 +27,7 @@ export default async function ContactPage({
             href="/"
             className="font-display text-lg font-bold tracking-tight text-pine"
           >
-            Adventure<span className="text-marigold-deep"> Nepal</span>
+            <SiteMark />
           </Link>
           <div className="flex items-center gap-4 text-sm font-medium sm:gap-6">
             <Link
@@ -59,22 +60,22 @@ export default async function ContactPage({
           </p>
           <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
             <a
-              href="tel:+9779841002208"
+              href={site.telHref}
               className="rounded-full bg-marigold px-6 py-3 text-center font-display text-lg font-bold text-pine hover:bg-marigold-deep hover:text-snow transition-colors"
             >
-              +977 984-100-2208
+              {site.phone.display}
             </a>
             <a
-              href={`https://wa.me/9779841002208?text=${encodeURIComponent('Hi, I have a question about a trip.')}`}
+              href={site.whatsappUrl(t('contact.direct.whatsappPrefill'))}
               className="rounded-full border border-snow/30 px-6 py-3 text-center text-sm font-semibold hover:bg-snow/10 transition-colors"
             >
               {t('contact.direct.whatsapp')}
             </a>
             <a
-              href="mailto:hello@adventurenepal.com"
+              href={site.mailtoHref}
               className="text-center text-sm font-semibold text-snow/85 underline underline-offset-4 hover:text-marigold transition-colors"
             >
-              hello@adventurenepal.com
+              {site.email}
             </a>
           </div>
         </div>
@@ -97,10 +98,10 @@ export default async function ContactPage({
       <footer className="bg-pine py-10 text-snow">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 text-sm sm:flex-row sm:justify-between">
           <p>
-            <span className="font-display font-bold">Adventure Nepal</span> ·{' '}
+            <span className="font-display font-bold">{site.name}</span> ·{' '}
             {t('map.address')}
           </p>
-          <p className="text-snow/70">+977 984-100-2208</p>
+          <p className="text-snow/70">{site.phone.display}</p>
         </div>
       </footer>
     </div>

@@ -66,12 +66,12 @@
     "subtitle": "Drop by for a cup of tea and plan your trip with us in person.",
     "address": "Street No. 15, Lakeside, Pokhara",
     "openInMaps": "Open in Google Maps",
-    "mapTitle": "Adventure Nepal office location"
+    "mapTitle": "{name} office location"
   },
   "footer": {
     "title": "Ready when you are.",
     "subtitle": "Call or message us on WhatsApp to hold a seat — a small deposit confirms your booking.",
-    "copyright": "© {year} Adventure Nepal. Photos via Unsplash."
+    "copyright": "© {year} {name}. Photos via Unsplash."
   },
   "contact": {
     "kicker": "Contact",
@@ -80,7 +80,8 @@
     "direct": {
       "title": "The fastest way to reach us",
       "subtitle": "Call or message us on WhatsApp — we usually answer right away.",
-      "whatsapp": "Message on WhatsApp"
+      "whatsapp": "Message on WhatsApp",
+      "whatsappPrefill": "Hi, I have a question about a trip."
     },
     "form": {
       "divider": "Or send us a message",
@@ -95,9 +96,9 @@
       "submit": "Send inquiry",
       "sending": "Sending…",
       "successTitle": "Inquiry sent!",
-      "successBody": "Thank you — we'll get back to you within a day. In a hurry? Call us at <phone>+977 984-100-2208</phone>.",
+      "successBody": "Thank you — we'll get back to you within a day. In a hurry? Call us at <tel>{phone}</tel>.",
       "errorMissing": "Please fill in your name, contact and inquiry.",
-      "errorSend": "Something went wrong sending your inquiry. Please try again, or call us at <phone>+977 984-100-2208</phone>."
+      "errorSend": "Something went wrong sending your inquiry. Please try again, or call us at <tel>{phone}</tel>."
     }
   }
 }

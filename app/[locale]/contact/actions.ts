@@ -3,6 +3,7 @@
 import { Resend } from "resend";
 import { env } from "@/env";
 import { getPackage } from "../../lib/packages";
+import { site } from "../../lib/site";
 
 export type InquiryState = {
   status: "idle" | "success" | "error";
@@ -34,7 +35,7 @@ export async function sendInquiry(
     const resend = new Resend(env.RESEND_API_KEY);
     const { error } = await resend.emails.send({
       from: env.CONTACT_FROM_EMAIL,
-      to: env.CONTACT_TO_EMAIL,
+      to: site.email,
       replyTo: contact.includes("@") ? contact : undefined,
       subject: `Website inquiry from ${name}${pkg ? ` — ${pkg}` : ""}`,
       text: [
