@@ -46,14 +46,13 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 
   return (
     <div className="flex flex-col flex-1">
-      <SiteHeader cta={{ label: t("nav.bookTrip"), href: "/contact" }} />
+      <SiteHeader />
 
       <main className="flex flex-1 flex-col">
         {/* Hero — light "postcard" layout; swipeable tour postcards on the right */}
         <section id="top" className="relative overflow-hidden bg-background">
-          {/* decorative background — Nepal outline + soft sun glow, behind all content */}
+          {/* decorative background — Nepal outline behind content */}
           <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-            <div className="absolute -top-24 right-0 h-72 w-72 translate-x-1/4 rounded-full bg-marigold/15 blur-3xl sm:h-96 sm:w-96" />
             <NepalOutline className="absolute left-1/2 top-1/2 w-[140%] max-w-none -translate-x-1/2 -translate-y-1/2 sm:w-[90%] lg:w-[75%]" />
           </div>
           <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-16 sm:pt-24 lg:grid-cols-[1fr_minmax(0,44%)] lg:pb-28">
@@ -81,7 +80,10 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
             </div>
             <div className="rise rise-2">
               <HeroPostcards
-                items={packages.map((pkg) => ({
+                items={[
+                  ...packages.filter((pkg) => pkg.slug === "dhorpatan-tour-package"),
+                  ...packages.filter((pkg) => pkg.slug !== "dhorpatan-tour-package"),
+                ].map((pkg) => ({
                   src: pkg.images[0].src,
                   alt: pkg.images[0].alt,
                   name: pkg.name,

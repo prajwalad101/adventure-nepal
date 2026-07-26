@@ -88,7 +88,7 @@ export default async function PackagePage({ params }: Props) {
   return (
     <div className="flex flex-col flex-1">
       <JsonLd data={packageJsonLd(pkg, locale)} />
-      <SiteHeader cta={{ label: t("nav.bookThisTrip"), href: "#book" }} />
+      <SiteHeader />
 
       <main className="mx-auto w-full max-w-6xl px-5 pb-20">
         {/* Title */}
