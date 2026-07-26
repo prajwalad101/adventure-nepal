@@ -1,6 +1,5 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "../../i18n/navigation";
-import LanguageSwitcher from "./LanguageSwitcher";
 import SiteMark from "./SiteMark";
 
 export type SiteHeaderCta = {
@@ -34,7 +33,7 @@ export default async function SiteHeader({ cta }: SiteHeaderProps) {
           >
             {t("nav.packages")}
           </Link>
-          <LanguageSwitcher />
+          {/* Language switcher hidden for v1 — English only. Re-add <LanguageSwitcher /> when Nepali launches. */}
           {cta &&
             (cta.href.startsWith("#") ? (
               <a href={cta.href} className={ctaClassName}>

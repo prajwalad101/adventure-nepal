@@ -43,7 +43,7 @@
     "perPerson": "/ person",
     "call": "Call {phone}",
     "whatsapp": "Message on WhatsApp",
-    "whatsappPrefill": "Hi, I'd like to book the {name}.",
+    "whatsappPrefill": "Hi, I'd like to know more information about the {name}.",
     "seatsNote": "Seats are on a {transport} basis. Call to check the next departure and hold your seat."
   },
   "why": {

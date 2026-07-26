@@ -1,6 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import Image from 'next/image';
 import { Link } from '../../i18n/navigation';
+import HeroPostcards from '../components/HeroPostcards';
 import ImageCarousel from '../components/ImageCarousel';
 import Ridgeline from '../components/Ridgeline';
 import SiteFooter from '../components/SiteFooter';
@@ -18,47 +18,43 @@ export default async function Home({ params }: PageProps<'/[locale]'>) {
     <div className="flex flex-col flex-1">
       <SiteHeader cta={{ label: t('nav.bookTrip'), href: '/contact' }} />
 
-      {/* Hero */}
-      <section id="top" className="relative">
-        <div className="relative h-[72vh] min-h-120 w-full">
-          <Image
-            src="https://images.unsplash.com/photo-1486911278844-a81c5267e227?w=2400&q=80"
-            alt="Ama Dablam rising above the clouds, Nepal"
-            fill
-            preload
-            sizes="100vw"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-linear-to-t from-pine via-pine/45 to-pine/15" />
-          <div className="absolute inset-0 flex items-end">
-            <div className="mx-auto w-full max-w-6xl px-5 pb-24 sm:pb-28">
-              <p className="rise text-sm font-medium uppercase tracking-[0.25em] text-marigold">
-                {t('hero.kicker')}
-              </p>
-              <h1 className="rise rise-1 mt-3 max-w-2xl font-display text-4xl font-bold leading-tight text-snow drop-shadow-md sm:text-6xl">
-                {t('hero.title')}
-              </h1>
-              <p className="rise rise-2 mt-4 max-w-xl text-base text-snow drop-shadow sm:text-lg">
-                {t('hero.subtitle')}
-              </p>
-              <div className="rise rise-3 mt-8 flex flex-wrap items-center gap-4">
-                <a
-                  href="#packages"
-                  className="inline-block rounded-full bg-marigold px-6 py-3 font-semibold text-pine hover:bg-marigold-deep hover:text-snow transition-colors"
-                >
-                  {t('hero.ctaPackages')}
-                </a>
-                <Link
-                  href="/contact"
-                  className="inline-block rounded-full border-2 border-snow/70 px-6 py-3 font-semibold text-snow hover:border-marigold hover:text-marigold transition-colors"
-                >
-                  {t('hero.ctaContact')}
-                </Link>
-              </div>
+      {/* Hero — light "postcard" layout; swipeable tour postcards on the right */}
+      <section id="top" className="relative overflow-hidden bg-background">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-16 sm:pt-24 lg:grid-cols-[1fr_minmax(0,44%)] lg:pb-28">
+          <div>
+            <h1 className="rise rise-1 font-display text-4xl font-bold leading-[1.05] text-pine sm:text-6xl">
+              {t('hero.title')}
+            </h1>
+            <p className="rise rise-2 mt-5 max-w-lg text-pine/70 sm:text-lg">
+              {t('hero.subtitle')}
+            </p>
+            <div className="rise rise-3 mt-9 flex flex-wrap items-center gap-4">
+              <a
+                href="#packages"
+                className="inline-block rounded-full bg-pine px-6 py-3 font-semibold text-snow hover:bg-pine-soft transition-colors"
+              >
+                {t('hero.ctaPackages')}
+              </a>
+              <Link
+                href="/contact"
+                className="inline-block rounded-full border-2 border-pine/25 px-6 py-3 font-semibold text-pine hover:border-marigold-deep hover:text-marigold-deep transition-colors"
+              >
+                {t('hero.ctaContact')}
+              </Link>
             </div>
           </div>
+          <div className="rise rise-2">
+            <HeroPostcards
+              items={packages.map((pkg) => ({
+                src: pkg.images[0].src,
+                alt: pkg.images[0].alt,
+                name: pkg.name,
+                duration: pkg.duration,
+                slug: pkg.slug,
+              }))}
+            />
+          </div>
         </div>
-        <Ridgeline className="absolute -bottom-px left-0 h-12 w-full text-background sm:h-16" />
       </section>
 
       {/* Packages */}
