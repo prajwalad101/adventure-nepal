@@ -244,7 +244,7 @@ export default async function PackagePage({ params }: Props) {
               >
                 <div
                   className="h-32 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${p.images[0].src.replace("w=1200", "w=600")})` }}
+                  style={{ backgroundImage: `url(${p.images[0].src})` }}
                   role="img"
                   aria-label={p.images[0].alt}
                 />

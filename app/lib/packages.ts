@@ -25,9 +25,6 @@ export type TourPackage = {
   notes?: string[];
 };
 
-const u = (id: string, w = 1200) =>
-  `https://images.unsplash.com/photo-${id}?w=${w}&q=75`;
-
 const JEEP = "4WD Jeep · 6–7 seat sharing";
 
 export const packages: TourPackage[] = [
@@ -40,9 +37,10 @@ export const packages: TourPackage[] = [
     duration: "1 night · 2 days",
     transport: JEEP,
     images: [
-      { src: u("1605640840605-14ac1855827b"), alt: "Dry Himalayan peaks above the Mustang valley" },
-      { src: u("1571401835393-8c5f35328320"), alt: "Prayer flags below Machhapuchhre's fishtail summit" },
-      { src: u("1545652985-5edd365b12eb"), alt: "Traveller facing snow peaks above the clouds" },
+      { src: "/images/packages/muktinath/temple-pagoda.webp", alt: "Muktinath temple pagoda beneath snow-dusted Himalayan peaks" },
+      { src: "/images/packages/muktinath/mountain-pass.webp", alt: "High mountain pass with snow peaks above the clouds" },
+      { src: "/images/packages/muktinath/valley-village.webp", alt: "Muktinath village nestled in an arid Himalayan valley" },
+      { src: "/images/packages/muktinath/eroded-cliffs.webp", alt: "Eroded cliffs along the Kali Gandaki valley near Jomsom" },
     ],
     highlights: [
       "Sarangkot Ganesh Temple",
@@ -93,9 +91,10 @@ export const packages: TourPackage[] = [
     duration: "3 nights · 4 days",
     transport: JEEP,
     images: [
-      { src: u("1533130061792-64b345e4a833"), alt: "Ama Dablam catching the last light of day" },
-      { src: u("1506905925346-21bda4d32df4"), alt: "Himalayan summits rising above a sea of clouds" },
-      { src: u("1464822759023-fed622ff2c3b"), alt: "Alpine valley with snow peaks on the horizon" },
+      { src: "/images/packages/upper-mustang/cliffs-valley.webp", alt: "Eroded cliffs and arid valley floor in Upper Mustang" },
+      { src: "/images/packages/upper-mustang/chorten.webp", alt: "Colorful Buddhist chorten against Mustang hills" },
+      { src: "/images/packages/upper-mustang/white-horse.webp", alt: "White horse grazing below ochre cliffs in Upper Mustang" },
+      { src: "/images/packages/upper-mustang/eroded-plateau.webp", alt: "Layered plateau and distant peaks in Upper Mustang" },
     ],
     highlights: [
       "Sarangkot Ganesh Temple",
@@ -170,9 +169,9 @@ export const packages: TourPackage[] = [
     duration: "2 nights · 3 days",
     transport: JEEP,
     images: [
-      { src: u("1544735716-392fe2489ffa"), alt: "Snow-covered Annapurna range under a clear sky" },
-      { src: u("1454496522488-7a8e488e8606"), alt: "Trekking trail with misty Himalayan ridges" },
-      { src: u("1470071459604-3b5ec3a7fe05"), alt: "Foggy foothills on the mountain approach" },
+      { src: "/images/packages/manang/peaks-prayer-flags.webp", alt: "Prayer flags against snow peaks in Manang" },
+      { src: "/images/packages/manang/village-stupa.webp", alt: "Stone village and white stupa below a snow mountain in Manang" },
+      { src: "/images/packages/manang/colorful-lodges.webp", alt: "Colorful lodge huts with Himalayan peaks behind Manang" },
     ],
     highlights: [
       "Octopus Waterfall",
@@ -227,9 +226,10 @@ export const packages: TourPackage[] = [
     duration: "6 nights · 7 days",
     transport: JEEP,
     images: [
-      { src: u("1526772662000-3f88f10405ff"), alt: "Green hills reflected in a calm lake" },
-      { src: u("1501785888041-af3ef285b470"), alt: "Lake shore with mountains at golden hour" },
-      { src: u("1476514525535-07fb3b4ae5f1"), alt: "Wooden boats moored on a quiet lake" },
+      { src: "/images/packages/rara-lake/pier-rafts.webp", alt: "Blue rafts at a pier on Rara Lake with snow peaks beyond" },
+      { src: "/images/packages/rara-lake/shoreline-trees.webp", alt: "Bare shoreline trees reflected in calm Rara Lake water" },
+      { src: "/images/packages/rara-lake/alpine-shore.webp", alt: "Wide alpine shore looking across deep blue Rara Lake" },
+      { src: "/images/packages/rara-lake/lakeside-gazebo.webp", alt: "Lakeside gazebo and snow mountains under an overcast sky at Rara" },
     ],
     highlights: [
       "Rara Lake",
@@ -308,9 +308,8 @@ export const packages: TourPackage[] = [
     duration: "1 night · 2 days",
     transport: JEEP,
     images: [
-      { src: u("1441974231531-c6227db76b6e"), alt: "Sunlight through tall forest trees" },
-      { src: u("1519904981063-b0cf448d479e"), alt: "Morning mist over green foothills" },
-      { src: u("1470071459604-3b5ec3a7fe05"), alt: "Foggy hills at dawn" },
+      { src: "/images/packages/dhorpatan/misty-meadow.webp", alt: "Misty alpine meadow with wildflowers around Dhorpatan" },
+      { src: "/images/packages/dhorpatan/red-gumba.webp", alt: "Red Himalayan gumba and chorten against pine forest in Dhorpatan" },
     ],
     highlights: [
       "Kusma Bungee",
@@ -358,9 +357,11 @@ export const packages: TourPackage[] = [
     duration: "2 nights · 3 days",
     transport: JEEP,
     images: [
-      { src: u("1506905925346-21bda4d32df4"), alt: "Himalayan summits above a sea of clouds" },
-      { src: u("1441974231531-c6227db76b6e"), alt: "Sunlight through tall forest trees" },
-      { src: u("1464822759023-fed622ff2c3b"), alt: "Alpine valley with snow peaks on the horizon" },
+      { src: "/images/packages/bukipatan/sheep-meadow.webp", alt: "Sheep grazing on green hills below misty peaks at Bukipatan" },
+      { src: "/images/packages/bukipatan/grazing-flock.webp", alt: "Flock grazing on highland pasture at Bukipatan" },
+      { src: "/images/packages/bukipatan/highland-camp.webp", alt: "Trekkers and tents on misty green slopes toward Bukipatan" },
+      { src: "/images/packages/dhorpatan/misty-meadow.webp", alt: "Misty alpine meadow with wildflowers around Dhorpatan" },
+      { src: "/images/packages/dhorpatan/red-gumba.webp", alt: "Red Himalayan gumba and chorten against pine forest in Dhorpatan" },
     ],
     highlights: [
       "Kusma Bungee",
