@@ -30,6 +30,9 @@ export const metadata: Metadata = {
   title: `${site.name} — Tours, Treks & Getaways`,
   description:
     "Small-group trips across Nepal — mountains, lakes, jungles and heritage cities. Transparent pricing, local guides, everything arranged.",
+  appleWebApp: {
+    title: "AdventureNepal",
+  },
 };
 
 export function generateStaticParams() {

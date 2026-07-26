@@ -21,7 +21,13 @@ const phone: SitePhone = {
 };
 
 const email = 'ashok@adventurenepal.tours';
-const mapsQuery = 'Adventure Nepal, Lakeside, Pokhara';
+const mapsQuery = 'Adventure Vacation Pvt.Ltd, Lakeside, Pokhara';
+
+// Official Google Business pin (Adventure Vacation Pvt.Ltd, Pokhara)
+// From https://maps.app.goo.gl/83HHUSv9TPdxXbL3A
+const mapsLat = 28.2103948;
+const mapsLng = 83.9585605;
+const mapsCid = '10347854958206995159';
 
 export const site: Site = {
   name: 'Adventure Nepal',
@@ -30,9 +36,9 @@ export const site: Site = {
   mapsQuery,
   telHref: `tel:${phone.tel}`,
   mailtoHref: `mailto:${email}`,
-  // ponytail: swap for the exact embed URL from the Google Business listing when provided
-  mapsEmbedUrl: `https://www.google.com/maps?q=${encodeURIComponent(mapsQuery)}&output=embed`,
-  mapsLinkUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapsQuery)}`,
+  // CID + coords pin the Google Business listing (text search alone can miss)
+  mapsEmbedUrl: `https://www.google.com/maps?cid=${mapsCid}&ll=${mapsLat},${mapsLng}&z=17&output=embed`,
+  mapsLinkUrl: 'https://maps.app.goo.gl/83HHUSv9TPdxXbL3A',
   whatsappUrl(prefill) {
     const id = phone.tel.replace(/^\+/, '');
     return `https://wa.me/${id}?text=${encodeURIComponent(prefill)}`;
