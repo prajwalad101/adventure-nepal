@@ -5,9 +5,13 @@ export type SitePhone = {
 
 export type Site = {
   name: string;
+  legalName: string;
+  url: string;
   phone: SitePhone;
   email: string;
+  address: string;
   mapsQuery: string;
+  geo: { lat: number; lng: number };
   telHref: string;
   mailtoHref: string;
   mapsEmbedUrl: string;
@@ -22,6 +26,7 @@ const phone: SitePhone = {
 
 const email = 'ashok@adventurenepal.tours';
 const mapsQuery = 'Adventure Vacation Pvt.Ltd, Lakeside, Pokhara';
+const address = 'Street No. 15, Lakeside, Pokhara, Nepal';
 
 // Official Google Business pin (Adventure Vacation Pvt.Ltd, Pokhara)
 // From https://maps.app.goo.gl/83HHUSv9TPdxXbL3A
@@ -29,11 +34,22 @@ const mapsLat = 28.2103948;
 const mapsLng = 83.9585605;
 const mapsCid = '10347854958206995159';
 
+const DEFAULT_SITE_URL = 'https://adventurenepal.tours';
+
+function resolveSiteUrl(): string {
+  const raw = process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL;
+  return raw.replace(/\/$/, '');
+}
+
 export const site: Site = {
   name: 'Adventure Nepal',
+  legalName: 'Adventure Vacation Pvt.Ltd',
+  url: resolveSiteUrl(),
   phone,
   email,
+  address,
   mapsQuery,
+  geo: { lat: mapsLat, lng: mapsLng },
   telHref: `tel:${phone.tel}`,
   mailtoHref: `mailto:${email}`,
   // CID + coords pin the Google Business listing (text search alone can miss)

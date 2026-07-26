@@ -1,9 +1,19 @@
 {
   "nav": {
     "packages": "Packages",
+    "contact": "Contact",
     "bookTrip": "Book a trip",
     "allPackages": "All packages",
-    "bookThisTrip": "Book this trip"
+    "bookThisTrip": "Book this trip",
+    "home": "Home",
+    "inquire": "Send an inquiry"
+  },
+  "meta": {
+    "homeTitle": "Adventure Nepal — Jeep Tours from Pokhara",
+    "homeDescription": "Small-group jeep tours across Nepal — mountains, lakes and heritage routes from Pokhara. Transparent pricing, local guides, everything arranged.",
+    "contactTitle": "Contact",
+    "contactDescription": "Send an inquiry about any Adventure Nepal package. We reply within a day — or call and WhatsApp us in Pokhara.",
+    "packageDescription": "{name} from {origin}: {duration}, {transport}. Full itinerary, pricing and what's included."
   },
   "hero": {
     "kicker": "Mountains · Lakes · Jungles · Temples",
@@ -71,7 +81,9 @@
   "footer": {
     "title": "Ready when you are.",
     "subtitle": "Call or message us on WhatsApp to hold a seat — a small deposit confirms your booking.",
-    "copyright": "© {year} {name}. Photos via Unsplash."
+    "copyright": "© {year} {name}.",
+    "explore": "Explore",
+    "trips": "Trips"
   },
   "contact": {
     "kicker": "Contact",

@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "../../../../i18n/navigation";
 import { notFound } from "next/navigation";
 import ImageCarousel from "../../../components/ImageCarousel";
+import JsonLd from "../../../components/JsonLd";
 import SiteFooter from "../../../components/SiteFooter";
 import SiteHeader from "../../../components/SiteHeader";
-import { getPackage, getPackages, packages } from "../../../lib/packages";
+import { packageJsonLd } from "../../../lib/json-ld";
+import {
+  getPackage,
+  getRelatedPackages,
+  packages,
+} from "../../../lib/packages";
+import { buildAlternates } from "../../../lib/seo";
 import { site } from "../../../lib/site";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
@@ -18,13 +26,36 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
   const pkg = getPackage(slug, locale);
   if (!pkg) return {};
+
+  const t = await getTranslations({ locale, namespace: "meta" });
+  const description = t("packageDescription", {
+    name: pkg.name,
+    origin: pkg.origin,
+    duration: pkg.duration,
+    transport: pkg.transport,
+  });
+  const title = `${pkg.name} — ${pkg.price}`;
+  const alternates = buildAlternates(locale, `/packages/${slug}`);
+  const ogImage = pkg.images[0]?.src;
+
   return {
-    title: `${pkg.name} — ${pkg.price} | ${site.name}`,
-    description: `${pkg.name} from ${pkg.origin}: ${pkg.duration}, ${pkg.transport}. Full itinerary, pricing and what's included.`,
+    title,
+    description,
+    alternates,
     openGraph: {
+      type: "website",
+      url: alternates.canonical as string,
       title: `${pkg.name} | ${site.name}`,
-      description: `${pkg.duration} from ${pkg.origin} — ${pkg.price} per person`,
-      images: [{ url: pkg.images[0].src }],
+      description,
+      locale: locale === "ne" ? "ne_NP" : "en_US",
+      siteName: site.name,
+      images: ogImage ? [{ url: ogImage }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${pkg.name} | ${site.name}`,
+      description,
+      images: ogImage ? [ogImage] : undefined,
     },
   };
 }
@@ -37,25 +68,36 @@ export default async function PackagePage({ params }: Props) {
   if (!pkg) notFound();
 
   const facts = [
-    { label: t("pkg.facts.price"), value: t("pkg.perPersonValue", { price: pkg.price }) },
+    {
+      label: t("pkg.facts.price"),
+      value: t("pkg.perPersonValue", { price: pkg.price }),
+    },
     { label: t("pkg.facts.duration"), value: pkg.duration },
     { label: t("pkg.facts.transport"), value: pkg.transport },
     { label: t("pkg.facts.startsFrom"), value: pkg.origin },
-    ...(pkg.departure ? [{ label: t("pkg.facts.departure"), value: pkg.departure }] : []),
-    ...(pkg.reserve ? [{ label: t("pkg.facts.privateOption"), value: pkg.reserve }] : []),
+    ...(pkg.departure
+      ? [{ label: t("pkg.facts.departure"), value: pkg.departure }]
+      : []),
+    ...(pkg.reserve
+      ? [{ label: t("pkg.facts.privateOption"), value: pkg.reserve }]
+      : []),
   ];
 
-  const related = getPackages(locale).filter((p) => p.slug !== pkg.slug).slice(0, 3);
+  const related = getRelatedPackages(slug, locale, 3);
 
   return (
     <div className="flex flex-col flex-1">
+      <JsonLd data={packageJsonLd(pkg, locale)} />
       <SiteHeader cta={{ label: t("nav.bookThisTrip"), href: "#book" }} />
 
       <main className="mx-auto w-full max-w-6xl px-5 pb-20">
         {/* Title */}
         <div className="pt-10">
           <p className="text-sm font-medium uppercase tracking-[0.25em] text-marigold-deep">
-            {t("packages.route", { origin: pkg.origin, destination: pkg.destination })}
+            {t("packages.route", {
+              origin: pkg.origin,
+              destination: pkg.destination,
+            })}
           </p>
           <h1 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-bold text-pine sm:text-5xl">
             {pkg.name}
@@ -154,7 +196,9 @@ export default async function PackagePage({ params }: Props) {
                   <ul className="mt-3 space-y-2 text-sm text-pine/80">
                     {pkg.includes.map((item) => (
                       <li key={item} className="flex gap-2">
-                        <span className="text-marigold-deep" aria-hidden="true">✓</span>
+                        <span className="text-marigold-deep" aria-hidden="true">
+                          ✓
+                        </span>
                         {item}
                       </li>
                     ))}
@@ -185,7 +229,9 @@ export default async function PackagePage({ params }: Props) {
                 <ul className="mt-5 space-y-2 text-sm leading-relaxed text-pine/80">
                   {pkg.notes.map((note) => (
                     <li key={note} className="flex gap-2">
-                      <span className="text-marigold-deep" aria-hidden="true">·</span>
+                      <span className="text-marigold-deep" aria-hidden="true">
+                        ·
+                      </span>
                       {note}
                     </li>
                   ))}
@@ -200,7 +246,9 @@ export default async function PackagePage({ params }: Props) {
               <p className="text-sm text-snow/70">{t("pkg.from")}</p>
               <p className="font-[family-name:var(--font-display)] text-3xl font-bold text-marigold">
                 {pkg.price}
-                <span className="ml-1 text-sm font-medium text-snow/70">{t("pkg.perPerson")}</span>
+                <span className="ml-1 text-sm font-medium text-snow/70">
+                  {t("pkg.perPerson")}
+                </span>
               </p>
               <p className="mt-1 text-sm text-snow/80">{pkg.duration}</p>
               {pkg.departure && (
@@ -220,6 +268,12 @@ export default async function PackagePage({ params }: Props) {
               >
                 {t("pkg.whatsapp")}
               </a>
+              <Link
+                href="/contact"
+                className="mt-3 block rounded-full border border-snow/30 py-3 text-center text-sm font-semibold hover:bg-snow/10 transition-colors"
+              >
+                {t("nav.inquire")}
+              </Link>
               <p className="mt-4 text-xs leading-relaxed text-snow/60">
                 {t("pkg.seatsNote", { transport: pkg.transport })}
               </p>
@@ -242,12 +296,15 @@ export default async function PackagePage({ params }: Props) {
                 href={`/packages/${p.slug}`}
                 className="group overflow-hidden rounded-2xl bg-snow ring-1 ring-pine/10 transition-shadow hover:shadow-md"
               >
-                <div
-                  className="h-32 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${p.images[0].src})` }}
-                  role="img"
-                  aria-label={p.images[0].alt}
-                />
+                <div className="relative h-32">
+                  <Image
+                    src={p.images[0].src}
+                    alt={p.images[0].alt}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
                 <div className="p-4">
                   <h3 className="font-[family-name:var(--font-display)] font-bold text-pine group-hover:text-marigold-deep transition-colors">
                     {p.name}

@@ -51,11 +51,13 @@ export default function HeroPostcards({ items }: { items: PostcardItem[] }) {
               dragElastic={0.9}
               dragSnapToOrigin
               onDragEnd={(_, info) => {
-                if (
-                  Math.abs(info.offset.x) > 90 ||
-                  Math.abs(info.velocity.x) > 500
-                )
-                  next();
+                const { offset, velocity } = info;
+                if (Math.abs(offset.x) < 90 && Math.abs(velocity.x) < 500) {
+                  return;
+                }
+                // Drag left → next; drag right → previous
+                if (offset.x + velocity.x < 0) next();
+                else prev();
               }}
               whileDrag={{ rotate: 6, scale: 1.03 }}
               className={`absolute inset-0 rounded-3xl bg-snow p-3 shadow-xl ring-1 ring-pine/10 ${

@@ -414,6 +414,17 @@ export const packages: TourPackage[] = [
   },
 ];
 
+/** Topical corridors for related-package linking. */
+const CORRIDORS: readonly (readonly string[])[] = [
+  [
+    "muktinath-tour-package",
+    "upper-mustang-tour-package",
+    "manang-tour-package",
+  ],
+  ["dhorpatan-tour-package", "bukipatan-dhorpatan-tour-package"],
+  ["rara-lake-tour-package"],
+];
+
 export function getPackages(locale = "en"): TourPackage[] {
   if (locale !== "ne") return packages;
   return packages.map((p) => ({ ...p, ...packagesNe[p.slug] }));
@@ -421,4 +432,22 @@ export function getPackages(locale = "en"): TourPackage[] {
 
 export function getPackage(slug: string, locale = "en") {
   return getPackages(locale).find((p) => p.slug === slug);
+}
+
+/** Prefer same-corridor siblings, then fill with other packages. */
+export function getRelatedPackages(
+  slug: string,
+  locale = "en",
+  limit = 3,
+): TourPackage[] {
+  const all = getPackages(locale);
+  const corridor = CORRIDORS.find((c) => c.includes(slug)) ?? [];
+  const siblings = corridor
+    .filter((s) => s !== slug)
+    .map((s) => all.find((p) => p.slug === s))
+    .filter((p): p is TourPackage => Boolean(p));
+  if (siblings.length >= limit) return siblings.slice(0, limit);
+  const taken = new Set([slug, ...siblings.map((p) => p.slug)]);
+  const rest = all.filter((p) => !taken.has(p.slug));
+  return [...siblings, ...rest].slice(0, limit);
 }
