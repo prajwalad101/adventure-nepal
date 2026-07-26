@@ -1,6 +1,6 @@
-import { createEnv } from "@t3-oss/env-nextjs";
-import { z } from "zod";
-import { site } from "./app/lib/site";
+import { createEnv } from '@t3-oss/env-nextjs';
+import { z } from 'zod';
+import { site } from './app/lib/site';
 
 export const env = createEnv({
   server: {
@@ -8,7 +8,7 @@ export const env = createEnv({
     CONTACT_FROM_EMAIL: z
       .string()
       .min(1)
-      .default(`${site.name} Website <onboarding@resend.dev>`),
+      .default(`${site.name} Website <ashok@adventurenepal.tours>`),
   },
   client: {},
   runtimeEnv: {

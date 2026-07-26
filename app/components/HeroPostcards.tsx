@@ -75,7 +75,7 @@ export default function HeroPostcards({ items }: { items: PostcardItem[] }) {
               {isFront && (
                 <Link
                   href={`/packages/${item.slug}`}
-                  className="absolute -left-4 bottom-8 -rotate-3 rounded-full bg-marigold px-4 py-2 font-display text-sm font-bold text-pine shadow-md hover:bg-marigold-deep hover:text-snow transition-colors"
+                  className="absolute bottom-6 left-6 rounded-full bg-marigold/95 px-3.5 py-1.5 font-display text-xs font-bold text-pine shadow-sm hover:bg-marigold-deep hover:text-snow transition-colors sm:text-sm"
                 >
                   {item.name} · {item.duration}
                 </Link>

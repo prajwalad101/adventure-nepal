@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '../../i18n/navigation';
 import HeroPostcards from '../components/HeroPostcards';
 import ImageCarousel from '../components/ImageCarousel';
+import NepalOutline from '../components/NepalOutline';
 import Ridgeline from '../components/Ridgeline';
 import SiteFooter from '../components/SiteFooter';
 import SiteHeader from '../components/SiteHeader';
@@ -20,7 +21,12 @@ export default async function Home({ params }: PageProps<'/[locale]'>) {
 
       {/* Hero — light "postcard" layout; swipeable tour postcards on the right */}
       <section id="top" className="relative overflow-hidden bg-background">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-16 sm:pt-24 lg:grid-cols-[1fr_minmax(0,44%)] lg:pb-28">
+        {/* decorative background — Nepal outline + soft sun glow, behind all content */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-24 right-0 h-72 w-72 translate-x-1/4 rounded-full bg-marigold/15 blur-3xl sm:h-96 sm:w-96" />
+          <NepalOutline className="absolute left-1/2 top-1/2 w-[140%] max-w-none -translate-x-1/2 -translate-y-1/2 sm:w-[90%] lg:w-[75%]" />
+        </div>
+        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-16 sm:pt-24 lg:grid-cols-[1fr_minmax(0,44%)] lg:pb-28">
           <div>
             <h1 className="rise rise-1 font-display text-4xl font-bold leading-[1.05] text-pine sm:text-6xl">
               {t('hero.title')}
@@ -178,7 +184,6 @@ export default async function Home({ params }: PageProps<'/[locale]'>) {
           <iframe
             src={site.mapsEmbedUrl}
             title={t('map.mapTitle', { name: site.name })}
-            loading="lazy"
             allowFullScreen
             referrerPolicy="no-referrer-when-downgrade"
             className="h-80 w-full rounded-2xl border-0 ring-1 ring-pine/10 sm:h-96"

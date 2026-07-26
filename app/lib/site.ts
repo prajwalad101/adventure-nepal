@@ -16,15 +16,15 @@ export type Site = {
 };
 
 const phone: SitePhone = {
-  tel: "+9779841002208",
-  display: "+977 984-100-2208",
+  tel: '+9779841002208',
+  display: '+977 984-100-2208',
 };
 
-const email = "hello@adventurenepal.com";
-const mapsQuery = "Adventure Nepal, Lakeside, Pokhara";
+const email = 'ashok@adventurenepal.tours';
+const mapsQuery = 'Adventure Nepal, Lakeside, Pokhara';
 
 export const site: Site = {
-  name: "Adventure Nepal",
+  name: 'Adventure Nepal',
   phone,
   email,
   mapsQuery,
@@ -34,7 +34,7 @@ export const site: Site = {
   mapsEmbedUrl: `https://www.google.com/maps?q=${encodeURIComponent(mapsQuery)}&output=embed`,
   mapsLinkUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapsQuery)}`,
   whatsappUrl(prefill) {
-    const id = phone.tel.replace(/^\+/, "");
+    const id = phone.tel.replace(/^\+/, '');
     return `https://wa.me/${id}?text=${encodeURIComponent(prefill)}`;
   },
 };
